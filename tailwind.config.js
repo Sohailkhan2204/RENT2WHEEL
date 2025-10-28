@@ -30,6 +30,8 @@ export default {
         "blue-accent": "#1562FC",
         "black": "#000000",
         "slate-600": "#4A5565",
+        "green-status-bg": "rgba(187, 255, 215, 0.51)",
+        "green-status-text": "#06A764",
       },
       fontFamily: {
         outfit: ["'Outfit'", "sans-serif"],

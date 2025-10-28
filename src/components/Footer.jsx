@@ -22,9 +22,9 @@ const Footer = () => {
 
   const quickLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Browse Cars', path: '#' },
+    { name: 'Browse Cars', path: '/cars' },
+    { name: 'My Bookings', path: '/bookings' },
     { name: 'List Your Car', path: '#' },
-    { name: 'About Us', path: '#' },
   ];
   const resources = ['Help Center', 'Terms of Service', 'Privacy Policy', 'Insurance'];
   const contact = ['1234 Luxury Drive', 'San Francisco, CA 94107', '+1 (555) 123-4567', 'car@example.com'];

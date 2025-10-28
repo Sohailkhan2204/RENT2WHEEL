@@ -13,6 +13,8 @@ import {
   ArrowRight,
   ArrowLeft,
   Check,
+  Filter,
+  CalendarDays,
 } from 'lucide-react';
 
 export const SearchIcon = (props) => <Search {...props} />;
@@ -29,3 +31,5 @@ export const MailIcon = (props) => <Mail {...props} />;
 export const ArrowRightIcon = (props) => <ArrowRight {...props} />;
 export const ArrowLeftIcon = (props) => <ArrowLeft {...props} />;
 export const CheckIcon = (props) => <Check {...props} />;
+export const FilterIcon = (props) => <Filter {...props} />;
+export const CalendarDaysIcon = (props) => <CalendarDays {...props} />;

@@ -15,8 +15,8 @@ const Logo = () => (
 const Header = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Cars', path: '#' },
-    { name: 'About', path: '#' },
+    { name: 'Cars', path: '/cars' },
+    { name: 'My Bookings', path: '/bookings' },
   ];
   return (
     <header className="absolute top-0 left-0 right-0 z-20 bg-slate-100/80 backdrop-blur-sm">
