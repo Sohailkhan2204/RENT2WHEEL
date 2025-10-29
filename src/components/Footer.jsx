@@ -24,10 +24,10 @@ const Footer = () => {
     { name: 'Home', path: '/' },
     { name: 'Browse Cars', path: '/cars' },
     { name: 'My Bookings', path: '/bookings' },
-    { name: 'List Your Car', path: '#' },
+    { name: 'List Your Car', path: '/admin/add-car' },
   ];
   const resources = ['Help Center', 'Terms of Service', 'Privacy Policy', 'Insurance'];
-  const contact = ['1234 Luxury Drive', 'San Francisco, CA 94107', '+1 (555) 123-4567', 'car@example.com'];
+  const contact = ['123 MG Road', 'Bengaluru, KA 560001', '+91 98765 43210', 'contact@carrental.in'];
 
   return (
     <footer className="bg-white pt-24 pb-8">

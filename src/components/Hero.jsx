@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SearchIcon, ChevronDownIcon, CalendarDaysIcon } from './icons';
+import { motion } from 'framer-motion';
+import { SearchIcon, ChevronDownIcon } from './icons';
 
 const Hero = () => {
   const [location, setLocation] = useState('');
@@ -21,11 +22,21 @@ const Hero = () => {
   return (
     <section className="relative bg-slate-100 pt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-gray-true-800-solid font-outfit mb-12">
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-5xl md:text-6xl font-bold text-gray-true-800-solid font-outfit mb-12"
+        >
           Luxury cars on Rent
-        </h1>
+        </motion.h1>
 
-        <div className="relative max-w-4xl mx-auto bg-white rounded-[50px] shadow-form p-4 mb-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="relative max-w-4xl mx-auto bg-white rounded-[50px] shadow-form p-4 mb-10"
+        >
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
             <div className="text-left px-4 py-2">
               <label htmlFor="pickup-location" className="text-sm font-medium text-slate-800/90 flex items-center cursor-pointer">
@@ -70,15 +81,20 @@ const Hero = () => {
               <span className="font-medium">Search</span>
             </button>
           </form>
-        </div>
+        </motion.div>
 
-        <div className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="max-w-4xl mx-auto"
+        >
           <img 
-            src="https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://s3-alpha-sig.figma.com/img/135d/140f/5786166f512b55e2f4e35f33e60af240?Expires=1762732800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YZQfmVTgV01Zu4Amw4FBo2LlpavvKmL8gZIQaxEqp2AyDoH7oHCL~hEGkoOHM-5IULPFZUSqM0-VGR7hb7~cvVUDErQgp5gj-6z3PNMOU526SLtYovG~cfbLD0oSY3KzD~n3DX-lvNM0byYQ6jfNLtbKVrmajnlqbcP2be04PGLzm0KCU3dDZluXzWzTHwrW9ZhII4B4xv8cMat0vYaiip8Y7cHpTevfe5S7H7Wjsf1vobO6QbzIrIbsT5gucXaaa4kpy4ROnsbDJF1Pl1sT7QgO24SLJC7BEwlDYNl9p7AbI1FmhAzpCN3bVsh2O05WvPu8jVNfq9Li~eHhkHHCFQ__" 
+            src="https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://s3-alpha-sig.figma.com/img/135d/140f/5786166f512b55e2f4e35f33e60af240?Expires=1762732800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YZQfmVTgV01Zu4Amw4FBo2LlpavvKmL8gZIQaxEqp2AyDoH7oHCL~hEGkoOHM-5IULPFZUSqM0-VGR7hb7~cvVUDErQgp5gj-6z3PNMOU526SLtYovG~cfbLD0oSY3KzD~n3DX-lvNM0byYQ6jfNLtbKVrmajnlqbcP2be04PGLzm0KCU3dDZluXzWzTHwrW9ZhII4B4xv8cMat0vYaiip8Y7cHpTevfe5S7H7Wjsf1vobO6QbzIrIbsT5gucXaaa4kpy4ROnsbDJF1Pl1sT7QgO24SLJC7BEwlDYNl9p7AbI1FmhAzpCN3bVsh2O05WvPu8jVNfq9Li~eHhkHHCFQ__" 
             alt="Silver luxury sedan" 
             className="w-full h-auto object-contain"
           />
-        </div>
+        </motion.div>
       </div>
       <div className="h-32 bg-white w-full"></div>
     </section>

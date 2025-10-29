@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { UsersIcon, CarIcon, FuelIcon, MapPinIcon } from './icons';
 
 const CarCard = ({ car }) => {
   return (
-    <Link to={`/car/${car.id}`} className="block group">
-      <div className="bg-white rounded-lg shadow-card overflow-hidden h-full transform group-hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+    <Link to={`/car/${car.id}`} className="block">
+      <motion.div
+        whileHover={{ y: -8, scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300 }}
+        className="bg-white rounded-lg shadow-card overflow-hidden h-full flex flex-col"
+      >
         <div className="relative">
           <img src={car.image} alt={car.name} className="w-full h-48 object-cover" />
           {car.available && (
@@ -21,7 +26,7 @@ const CarCard = ({ car }) => {
               <p className="text-sm text-slate-600 font-outfit">{car.type} {car.year}</p>
             </div>
             <div className="bg-black text-white text-xs font-outfit px-3 py-2 rounded-lg">
-              ${car.price}/day
+              ₹{car.price.toLocaleString('en-IN')}/day
             </div>
           </div>
           <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-slate-600 font-outfit mt-auto">
@@ -43,7 +48,7 @@ const CarCard = ({ car }) => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </Link>
   );
 };

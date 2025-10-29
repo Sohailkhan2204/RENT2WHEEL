@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { featuredCars } from '../data/mockData';
 import { CalendarDaysIcon, MapPinIcon } from './icons';
 
@@ -10,7 +11,13 @@ const BookingCard = ({ booking }) => {
   }
 
   return (
-    <div className="border border-slate-200 rounded-lg p-6 flex flex-col md:flex-row gap-6 items-start">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+      className="border border-slate-200 rounded-lg p-6 flex flex-col md:flex-row gap-6 items-start"
+    >
       {/* Left Side: Car Info */}
       <div className="flex-shrink-0 w-full md:w-80">
         <img src={booking.image} alt={car.name} className="w-full h-40 object-cover rounded-md" />
@@ -57,10 +64,10 @@ const BookingCard = ({ booking }) => {
       {/* Right Side: Price */}
       <div className="text-left md:text-right w-full md:w-auto mt-4 md:mt-0 flex-shrink-0">
         <p className="text-sm text-slate-500/95">Total Price</p>
-        <p className="text-2xl font-semibold text-blue-600 mb-1">${booking.totalPrice}</p>
+        <p className="text-2xl font-semibold text-blue-600 mb-1">₹{booking.totalPrice.toLocaleString('en-IN')}</p>
         <p className="text-sm text-slate-500/95">Booked on {booking.bookedOn}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

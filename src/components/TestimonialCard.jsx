@@ -1,9 +1,22 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { StarIcon } from './icons';
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 100,
+    },
+  },
+};
 
 const TestimonialCard = ({ testimonial }) => {
   return (
-    <div className="bg-white p-6 rounded-xl shadow-testimonial">
+    <motion.div variants={itemVariants} className="bg-white p-6 rounded-xl shadow-testimonial h-full">
       <div className="flex items-center gap-4 mb-4">
         <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full object-cover" />
         <div>
@@ -19,7 +32,7 @@ const TestimonialCard = ({ testimonial }) => {
       <p className="text-sm text-gray-700-light font-outfit leading-relaxed">
         {testimonial.quote}
       </p>
-    </div>
+    </motion.div>
   );
 };
 

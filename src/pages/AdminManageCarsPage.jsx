@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { motion, AnimatePresence } from 'framer-motion';
 import { featuredCars } from '../data/mockData';
 import StatusBadge from '../components/StatusBadge';
 import { EyeIcon, Trash2Icon } from '../components/icons';
@@ -34,32 +35,41 @@ const AdminManageCarsPage = () => {
             <div className="col-span-2 text-center">Actions</div>
           </div>
 
-          <div className="divide-y divide-slate-200">
-            {cars.map((car) => (
-              <div key={car.id} className="grid grid-cols-12 gap-4 items-center py-4">
-                <div className="col-span-5 flex items-center gap-4 pl-4">
-                  <img src={car.image} alt={car.name} className="w-16 h-10 object-cover rounded-md" />
-                  <div>
-                    <span className="font-medium text-slate-800">{car.name}</span>
-                    <p className="text-sm text-slate-500">{car.seats} seats • {car.transmission.toLowerCase()}</p>
+          <motion.div layout className="divide-y divide-slate-200">
+            <AnimatePresence>
+              {cars.map((car) => (
+                <motion.div 
+                  key={car.id} 
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, x: -100, transition: { duration: 0.3 } }}
+                  className="grid grid-cols-12 gap-4 items-center py-4"
+                >
+                  <div className="col-span-5 flex items-center gap-4 pl-4">
+                    <img src={car.image} alt={car.name} className="w-16 h-10 object-cover rounded-md" />
+                    <div>
+                      <span className="font-medium text-slate-800">{car.name}</span>
+                      <p className="text-sm text-slate-500">{car.seats} seats • {car.transmission.toLowerCase()}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="col-span-2 text-slate-600">{car.category}</div>
-                <div className="col-span-2 font-medium text-slate-800">${car.price}/day</div>
-                <div className="col-span-1">
-                  <StatusBadge status={car.available ? 'Available' : 'Not Available'} />
-                </div>
-                <div className="col-span-2 flex justify-center items-center gap-4">
-                  <Link to={`/car/${car.id}`} className="text-slate-500 hover:text-slate-800" title="View Car Details">
-                    <EyeIcon className="w-5 h-5" />
-                  </Link>
-                  <button onClick={() => handleDeleteCar(car.id)} className="text-slate-500 hover:text-red-600" title="Delete Car">
-                    <Trash2Icon className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+                  <div className="col-span-2 text-slate-600">{car.category}</div>
+                  <div className="col-span-2 font-medium text-slate-800">₹{car.price.toLocaleString('en-IN')}/day</div>
+                  <div className="col-span-1">
+                    <StatusBadge status={car.available ? 'Available' : 'Not Available'} />
+                  </div>
+                  <div className="col-span-2 flex justify-center items-center gap-4">
+                    <Link to={`/car/${car.id}`} className="text-slate-500 hover:text-slate-800" title="View Car Details">
+                      <EyeIcon className="w-5 h-5" />
+                    </Link>
+                    <button onClick={() => handleDeleteCar(car.id)} className="text-slate-500 hover:text-red-600" title="Delete Car">
+                      <Trash2Icon className="w-5 h-5" />
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { AnimatePresence, motion } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -14,35 +15,52 @@ import AdminManageBookingsPage from './pages/AdminManageBookingsPage';
 import AdminManageCarsPage from './pages/AdminManageCarsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
+const PageLayout = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    transition={{ duration: 0.5 }}
+  >
+    {children}
+  </motion.div>
+);
+
 const AppLayout = () => (
   <div className="bg-white font-outfit">
     <Header />
     <main>
-      <Outlet />
+      <PageLayout>
+        <Outlet />
+      </PageLayout>
     </main>
     <Footer />
   </div>
 );
 
 function App() {
+  const location = useLocation();
+
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-      <Routes>
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="cars" element={<CarsPage />} />
-          <Route path="car/:id" element={<CarDetailsPage />} />
-          <Route path="bookings" element={<MyBookingsPage />} />
-        </Route>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboardPage />} />
-          <Route path="add-car" element={<AdminAddCarPage />} />
-          <Route path="manage-cars" element={<AdminManageCarsPage />} />
-          <Route path="manage-bookings" element={<AdminManageBookingsPage />} />
-        </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="cars" element={<CarsPage />} />
+            <Route path="car/:id" element={<CarDetailsPage />} />
+            <Route path="bookings" element={<MyBookingsPage />} />
+          </Route>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboardPage />} />
+            <Route path="add-car" element={<AdminAddCarPage />} />
+            <Route path="manage-cars" element={<AdminManageCarsPage />} />
+            <Route path="manage-bookings" element={<AdminManageBookingsPage />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </AnimatePresence>
     </>
   );
 }

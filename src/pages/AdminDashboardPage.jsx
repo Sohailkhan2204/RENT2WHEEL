@@ -1,9 +1,25 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { dashboardStats, recentBookingsAdmin } from '../data/mockData';
 import DashboardStatCard from '../components/DashboardStatCard';
 import RecentBookingsCard from '../components/RecentBookingsCard';
 import MonthlyRevenueCard from '../components/MonthlyRevenueCard';
 import { CarIcon, ClipboardListIcon, AlertTriangleIcon, CheckCircleIcon } from '../components/icons';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
 
 const AdminDashboardPage = () => {
   return (
@@ -15,22 +31,42 @@ const AdminDashboardPage = () => {
         </p>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <DashboardStatCard title="Total Cars" value={dashboardStats.totalCars} icon={CarIcon} />
-        <DashboardStatCard title="Total Bookings" value={dashboardStats.totalBookings} icon={ClipboardListIcon} />
-        <DashboardStatCard title="Pending Bookings" value={dashboardStats.pendingBookings} icon={AlertTriangleIcon} />
-        <DashboardStatCard title="Completed Bookings" value={dashboardStats.completedBookings} icon={CheckCircleIcon} />
-      </div>
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+      >
+        <motion.div variants={itemVariants}>
+          <DashboardStatCard title="Total Cars" value={dashboardStats.totalCars} icon={CarIcon} />
+        </motion.div>
+        <motion.div variants={itemVariants}>
+          <DashboardStatCard title="Total Bookings" value={dashboardStats.totalBookings} icon={ClipboardListIcon} />
+        </motion.div>
+        <motion.div variants={itemVariants}>
+          <DashboardStatCard title="Pending Bookings" value={dashboardStats.pendingBookings} icon={AlertTriangleIcon} />
+        </motion.div>
+        <motion.div variants={itemVariants}>
+          <DashboardStatCard title="Completed Bookings" value={dashboardStats.completedBookings} icon={CheckCircleIcon} />
+        </motion.div>
+      </motion.div>
 
-      {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="lg:col-span-2"
+        >
           <RecentBookingsCard bookings={recentBookingsAdmin} />
-        </div>
-        <div>
+        </motion.div>
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.5, delay: 0.3 }}
+        >
           <MonthlyRevenueCard revenue={dashboardStats.monthlyRevenue} />
-        </div>
+        </motion.div>
       </div>
     </div>
   );

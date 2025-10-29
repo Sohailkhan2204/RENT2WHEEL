@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SearchIcon, ListIcon, XIcon } from './icons';
 
 const Logo = () => (
@@ -85,40 +86,67 @@ const Header = () => {
 
           <div className="lg:hidden">
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-true-800-solid focus:outline-none p-2 -mr-2">
-              {isMenuOpen ? <XIcon className="h-7 w-7" /> : <ListIcon className="h-7 w-7" />}
+              <AnimatePresence initial={false} mode="wait">
+                <motion.div
+                  key={isMenuOpen ? 'close' : 'open'}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {isMenuOpen ? <XIcon className="h-7 w-7" /> : <ListIcon className="h-7 w-7" />}
+                </motion.div>
+              </AnimatePresence>
             </button>
           </div>
         </div>
       </div>
 
-      <div className={`lg:hidden fixed inset-0 z-20 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="absolute inset-0 bg-black/30" onClick={() => setIsMenuOpen(false)}></div>
-          <div className="relative w-80 max-w-[85vw] h-full bg-white ml-auto p-6 flex flex-col">
-            <div className="flex items-center justify-between mb-10">
-                <Logo />
-                <button onClick={() => setIsMenuOpen(false)} className="text-gray-true-800-solid focus:outline-none p-2 -mr-2">
-                    <XIcon className="h-7 w-7" />
-                </button>
-            </div>
-            <nav className="flex flex-col space-y-2 flex-grow">
-              {mobileNavLinks.map(link => (
-                <NavLink 
-                  key={link.name} 
-                  to={link.path} 
-                  onClick={() => setIsMenuOpen(false)}
-                  className={({ isActive }) => 
-                    `text-gray-true-800/80 font-medium py-3 text-lg rounded-md px-3 hover:text-blue-600 hover:bg-slate-100 transition-colors ${isActive ? 'text-blue-600 bg-blue-50' : ''}`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              ))}
-            </nav>
-            <a href="#" onClick={handleLogout} className="bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors text-center mt-6">
-              Logout
-            </a>
-          </div>
-        </div>
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden fixed inset-0 z-20 bg-black/30"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="lg:hidden fixed top-0 right-0 bottom-0 z-20 w-80 max-w-[85vw] h-full bg-white p-6 flex flex-col"
+            >
+              <div className="flex items-center justify-between mb-10">
+                  <Logo />
+                  <button onClick={() => setIsMenuOpen(false)} className="text-gray-true-800-solid focus:outline-none p-2 -mr-2">
+                      <XIcon className="h-7 w-7" />
+                  </button>
+              </div>
+              <nav className="flex flex-col space-y-2 flex-grow">
+                {mobileNavLinks.map(link => (
+                  <NavLink 
+                    key={link.name} 
+                    to={link.path} 
+                    onClick={() => setIsMenuOpen(false)}
+                    className={({ isActive }) => 
+                      `text-gray-true-800/80 font-medium py-3 text-lg rounded-md px-3 hover:text-blue-600 hover:bg-slate-100 transition-colors ${isActive ? 'text-blue-600 bg-blue-50' : ''}`
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                ))}
+              </nav>
+              <a href="#" onClick={handleLogout} className="bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors text-center mt-6">
+                Logout
+              </a>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
