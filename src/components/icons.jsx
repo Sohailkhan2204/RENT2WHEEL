@@ -22,6 +22,9 @@ import {
   CheckCircle,
   List,
   UploadCloud,
+  Eye,
+  Trash2,
+  X,
 } from 'lucide-react';
 
 export const SearchIcon = (props) => <Search {...props} />;
@@ -47,3 +50,6 @@ export const AlertTriangleIcon = (props) => <AlertTriangle {...props} />;
 export const CheckCircleIcon = (props) => <CheckCircle {...props} />;
 export const ListIcon = (props) => <List {...props} />;
 export const UploadCloudIcon = (props) => <UploadCloud {...props} />;
+export const EyeIcon = (props) => <Eye {...props} />;
+export const Trash2Icon = (props) => <Trash2 {...props} />;
+export const XIcon = (props) => <X {...props} />;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CarCard from './CarCard';
 import { featuredCars } from '../data/mockData';
 import { ArrowRightIcon } from './icons';
@@ -21,10 +22,10 @@ const FeaturedVehicles = () => {
           ))}
         </div>
         <div className="text-center">
-          <button className="inline-flex items-center gap-2 border border-gray-300 rounded-lg px-6 py-3 text-base font-outfit text-slate-800 hover:bg-gray-100 transition-colors">
+          <Link to="/cars" className="inline-flex items-center gap-2 border border-gray-300 rounded-lg px-6 py-3 text-base font-outfit text-slate-800 hover:bg-slate-100 transition-colors">
             Explore all cars
             <ArrowRightIcon className="w-5 h-5" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

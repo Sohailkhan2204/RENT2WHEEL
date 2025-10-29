@@ -21,12 +21,12 @@ const AdminSidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 p-6 flex flex-col">
+    <aside className="w-64 bg-white border-r border-gray-200 p-6 flex-col hidden lg:flex">
       <Logo />
       
       <div className="flex items-center gap-4 mb-10">
         <img 
-            src="https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://s3-alpha-sig.figma.com/img/4441/f63d/d6a4767d62e9b16b5b04484ca10?Expires=1762732800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=eFgeiax1Mf36knZYMNunUM3Ccum2dFtrPquvA~SUDYkPsv9f9QsYRQ86Wx6qxn2d30D7jaUwJkw0h521a-xUH0gmVujhzQfH8exlg7Ha5qlI~btAMMJ4fksnKV65tKAyLUvjN5x~qGobl3h8qgT6Aw~M7SivrQSqAyNtm15SKQzLlc8sciJfLhP1XZXgnpNZypm-ye9lfKdXg9mIlEBqyBySjrXNnSp7OjlVHpxtku61rkQo3SRRjJgIZl1iYV0wx7Zh9pCiFAj5mhVvJnoq8czAPRxq2hIqUELJXtCheAe2EUSljIuGY4h-qhdiiTnmCF6sH6oiMHynf9UKwi-SmA__" 
+            src="https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://s3-alpha-sig.figma.com/img/4441/f63d/d6a4767d62e9b16b5b04484ca10?Expires=1762732800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=eFgeiax1Mf36knZYMNunUM3Ccum2dFtrPquvA~SUDYkPsv9f9QsYRQ86Wx6qxn2d30D7jaUwJkw0h521a-xUH0gmVujhzQfH8exlg7Ha5qlI~btAMMJ4fksnKV65tKAyLUvjN5x~qGobl3h8qgT6Aw~M7SivrQSqAyNtm15SKQzLlc8sciJfLhP1XZXgnpNZypm-ye9lfKdXg9mIlEBqyBySjrXNnSp7OjlVHpxtku61rkQo3SRRjJgIZl1iYV0wx7Zh9pCiFAj5mhVvJnoq8czAPRxq2hIqUELJXtCheAe2EUSljIuGY4h-qhdiiTnmCF6sH6oiMHynf9UKwi-SmA__" 
             alt="Richard Sanford" 
             className="w-14 h-14 rounded-full object-cover"
         />
@@ -40,7 +40,7 @@ const AdminSidebar = () => {
           <NavLink
             key={name}
             to={path}
-            end={path === '/admin' || path.startsWith('/admin/manage')}
+            end={path === '/admin'}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors ${
                 isActive

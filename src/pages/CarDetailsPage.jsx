@@ -1,24 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { featuredCars } from '../data/mockData';
 import { ArrowLeftIcon, UsersIcon, FuelIcon, CarIcon, MapPinIcon, CheckIcon } from '../components/icons';
 
 const CarDetailsPage = () => {
   const { id } = useParams();
   const car = featuredCars.find(c => c.id === parseInt(id));
+  
+  const [pickupDate, setPickupDate] = useState('');
+  const [returnDate, setReturnDate] = useState('');
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+    if (!pickupDate || !returnDate) {
+      toast.error('Please select both pickup and return dates.');
+      return;
+    }
+    if (new Date(pickupDate) >= new Date(returnDate)) {
+      toast.error('Return date must be after the pickup date.');
+      return;
+    }
+    toast.success(`Booking for ${car.name} has been requested!`);
+    // In a real app, you'd navigate to a confirmation page or update state.
+    setPickupDate('');
+    setReturnDate('');
+  };
 
   if (!car) {
     return (
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-48 text-center">
         <h2 className="text-2xl font-semibold">Car not found</h2>
-        <Link to="/" className="text-blue-600 hover:underline mt-4 inline-block">
-          Go back to Home
+        <Link to="/cars" className="text-blue-600 hover:underline mt-4 inline-block">
+          Go back to all cars
         </Link>
       </div>
     );
   }
   
-  const carImage = car.image || 'https://img-wrapper.vercel.app/image?url=https://placehold.co/800x600/f3f4f6/64748b?text=Image';
+  const carImage = car.image || 'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://placehold.co/800x600/f3f4f6/64748b?text=Image';
 
   const features = [
     'Leather Seats',
@@ -38,17 +58,16 @@ const CarDetailsPage = () => {
     <div className="bg-white font-outfit pt-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors">
+          <Link to="/cars" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors">
             <ArrowLeftIcon className="w-4 h-4" />
             <span className="text-sm font-medium">Back to all cars</span>
           </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Left Column: Car Info */}
           <div className="lg:col-span-2">
             <div className="bg-slate-100 rounded-lg mb-8 flex items-center justify-center p-4">
-               <img src={'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://s3-alpha-sig.figma.com/img/d5c2/616f/853add84ce8f822b4ddbd4c5c30bed70?Expires=1762732800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=iIySwdV4Ysh-XjxSz-OOXxPAmREeNqZaXzZsae7Thftpf8z8HKrnNYpcE8tW~2Q4ei7MUJQJOKz37aoVwYPK8MXp0dqP5P3-YjsaesaRvfaZtRu9XJw6dU7dIomnlnaxKnH-du7ZIV-x2FGi6d-3pqfaMgfdKxXcLYFcr2UHG0MuBVVjrBX~40-aayL7VFQOuCUGKwp496lI5VX8z-Cl5wq3N8m-9rR0YQjrXTuQRxacrM8Skpeh1EmD-xNXgUs95AkKnYWNkJ2XohNjSVgw71Oah7Vpm3YloOiaG~ZttXWfDeK48ga0S04etGKpURo11XZQjIO7Mu7tiaFpZIfv3g__'} alt={car.name} className="w-full max-w-2xl h-auto object-cover rounded-lg" />
+               <img src={'https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://img-wrapper.vercel.app/image?url=https://s3-alpha-sig.figma.com/img/d5c2/616f/853add84ce8f822b4ddbd4c5c30bed70?Expires=1762732800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=iIySwdV4Ysh-XjxSz-OOXxPAmREeNqZaXzZsae7Thftpf8z8HKrnNYpcE8tW~2Q4ei7MUJQJOKz37aoVwYPK8MXp0dqP5P3-YjsaesaRvfaZtRu9XJw6dU7dIomnlnaxKnH-du7ZIV-x2FGi6d-3pqfaMgfdKxXcLYFcr2UHG0MuBVVjrBX~40-aayL7VFQOuCUGKwp496lI5VX8z-Cl5wq3N8m-9rR0YQjrXTuQRxacrM8Skpeh1EmD-xNXgUs95AkKnYWNkJ2XohNjSVgw71Oah7Vpm3YloOiaG~ZttXWfDeK48ga0S04etGKpURo11XZQjIO7Mu7tiaFpZIfv3g__'} alt={car.name} className="w-full max-w-2xl h-auto object-cover rounded-lg" />
             </div>
             
             <h1 className="text-3xl font-bold text-slate-800 mb-1">{car.name.toUpperCase()}</h1>
@@ -85,7 +104,6 @@ const CarDetailsPage = () => {
             </div>
           </div>
 
-          {/* Right Column: Booking Card */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-card p-6 sticky top-28">
               <div className="flex items-baseline justify-between mb-6 border-b border-slate-200 pb-4">
@@ -93,20 +111,20 @@ const CarDetailsPage = () => {
                 <span className="text-sm text-slate-500">/per day</span>
               </div>
               
-              <div className="space-y-4 mb-6">
+              <form onSubmit={handleBooking} className="space-y-4 mb-6">
                 <div>
                   <label className="text-sm font-medium text-slate-800 mb-2 block">Pickup Date</label>
-                  <input type="text" placeholder="Select date" className="w-full border border-slate-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-600"/>
+                  <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} className="w-full border border-slate-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-600"/>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-slate-800 mb-2 block">Return Date</label>
-                  <input type="text" placeholder="Select date" className="w-full border border-slate-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-600"/>
+                  <input type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} className="w-full border border-slate-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-600"/>
                 </div>
-              </div>
+                <button type="submit" className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                  Book Now
+                </button>
+              </form>
 
-              <button className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                Book Now
-              </button>
               <p className="text-xs text-slate-500 text-center mt-4">
                 No credit card required to reserve
               </p>

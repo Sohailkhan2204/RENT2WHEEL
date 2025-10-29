@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { featuredCars } from '../data/mockData';
 import CarCard from '../components/CarCard';
 import { SearchIcon, FilterIcon } from '../components/icons';
 
 const CarsPage = () => {
-    const availableCars = featuredCars.filter(car => car.available);
+    const [searchParams] = useSearchParams();
+    const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+
+    const filteredCars = useMemo(() => {
+        let cars = [...featuredCars];
+        const query = searchQuery.toLowerCase();
+
+        if (query) {
+            cars = cars.filter(car => 
+                car.name.toLowerCase().includes(query) ||
+                car.type.toLowerCase().includes(query) ||
+                car.location.toLowerCase().includes(query)
+            );
+        }
+        
+        return cars;
+    }, [searchQuery]);
 
     return (
         <main className="font-outfit pt-20">
@@ -27,6 +44,8 @@ const CarsPage = () => {
                             <input
                                 type="text"
                                 placeholder="Search by make, model, or features"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                                 className="w-full h-12 pl-12 pr-4 border border-slate-200 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                             />
                             <button className="absolute right-4 top-1/2 -translate-y-1/2">
@@ -34,15 +53,22 @@ const CarsPage = () => {
                             </button>
                         </div>
                         <p className="text-base text-gray-text">
-                            Showing {availableCars.length} Cars
+                            Showing {filteredCars.length} Cars
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {featuredCars.map(car => (
-                            <CarCard key={car.id} car={car} />
-                        ))}
-                    </div>
+                    {filteredCars.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {filteredCars.map(car => (
+                                <CarCard key={car.id} car={car} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-16">
+                            <h3 className="text-xl font-semibold text-slate-800">No cars found</h3>
+                            <p className="text-slate-500 mt-2">Try adjusting your search or filters.</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </main>

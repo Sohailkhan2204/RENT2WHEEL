@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const Newsletter = () => {
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email.trim() === '' || !email.includes('@')) {
+      toast.error('Please enter a valid email address.');
+      return;
+    }
+    toast.success('Thank you for subscribing!');
+    setEmail('');
+  };
+
   return (
     <section className="bg-white py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,9 +24,11 @@ const Newsletter = () => {
           <p className="text-base text-gray-text mb-8 font-outfit">
             Subscribe to get the latest offers, new collections, and exclusive discounts.
           </p>
-          <form className="relative max-w-xl mx-auto">
+          <form onSubmit={handleSubmit} className="relative max-w-xl mx-auto">
             <input 
               type="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address" 
               className="w-full h-14 border border-gray-300 rounded-lg pl-6 pr-40 focus:outline-none focus:ring-2 focus:ring-blue-600 font-outfit"
             />
