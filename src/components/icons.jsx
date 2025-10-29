@@ -13,6 +13,15 @@ import {
   ArrowRight,
   ArrowLeft,
   Check,
+  Filter,
+  CalendarDays,
+  LayoutDashboard,
+  PlusSquare,
+  ClipboardList,
+  AlertTriangle,
+  CheckCircle,
+  List,
+  UploadCloud,
 } from 'lucide-react';
 
 export const SearchIcon = (props) => <Search {...props} />;
@@ -29,3 +38,12 @@ export const MailIcon = (props) => <Mail {...props} />;
 export const ArrowRightIcon = (props) => <ArrowRight {...props} />;
 export const ArrowLeftIcon = (props) => <ArrowLeft {...props} />;
 export const CheckIcon = (props) => <Check {...props} />;
+export const FilterIcon = (props) => <Filter {...props} />;
+export const CalendarDaysIcon = (props) => <CalendarDays {...props} />;
+export const LayoutDashboardIcon = (props) => <LayoutDashboard {...props} />;
+export const PlusSquareIcon = (props) => <PlusSquare {...props} />;
+export const ClipboardListIcon = (props) => <ClipboardList {...props} />;
+export const AlertTriangleIcon = (props) => <AlertTriangle {...props} />;
+export const CheckCircleIcon = (props) => <CheckCircle {...props} />;
+export const ListIcon = (props) => <List {...props} />;
+export const UploadCloudIcon = (props) => <UploadCloud {...props} />;
